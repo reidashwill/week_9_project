@@ -1,16 +1,24 @@
 <h2> <%= @project.title %></h2>
 
-<form action="/projects/<%= @project.id %>" method="post">
-  <label for="project_title">Update project title?</label>
-  <br>
-  <input name="_method" type="hidden" value="patch">
-  <input id="project_title" name="project_title" type="text">
-  <button type="submit" class="btn-success">Submit</button>
-</form>
+<% if @volunteers %>
+<h3> Our volunteers:</h3>
+<h4> Click on a volunteer to see their details: <h4>
+  <ul>
+  <% @volunteers.each do |volunteer| %>
+    <li><a href="/volunteers/<%= volunteer.id %>"> <%= volunteer.name %></a></li>
+  <% end %>
+  </ul>
+<% end %>  
 
-<form action="/projects/<%= @project.id %>" method="post">
-  <input name="_method" type="hidden" value="delete">
-  <button type="submit" class="btn-warning">Delete Project?</button>
-</form>
 
+<a href="/projects/<%= @project.id %>/edit">Edit Project</a>
+<br>
+<br>
 <p> Add a volunteer to this project! </p>
+<form action="/projects/<%= @project.id %>/add_volunteer" method="post">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" class="form-control">
+  </div>
+  <button class="btn-success">Update Volunteer</button>
+</form>

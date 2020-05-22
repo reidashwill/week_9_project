@@ -13,19 +13,16 @@ get('/')do
 end
 
 get('/home') do
-  erb(:index)
-end
-
-get('/projects') do
   @projects = Project.all()
   erb(:projects)
 end
 
+
 post("/projects") do
-  project_title = params[:project_title]
-  project = Project.new({:title => project_title, :id => nil})
+  title = params[:title]
+  project = Project.new({:title => title, :id => nil})
   project.save
-  redirect to(('projects'))
+  redirect to('/home')
 end
 
 get("/volunteers") do
@@ -33,39 +30,40 @@ get("/volunteers") do
   erb(:volunteers)
 end
 
-post("/volunteers") do
-  volunteer_name = params[:volunteer_name]
-  
-  assigned_project_query = DB.exec("SELECT * FROM projects ORDER BY RANDOM() LIMIT 1;")
-  title = assigned_project_query.first().fetch("title")
-  id = assigned_project_query.first().fetch("id")
-  assigned_project = Project.new({:title => title, :id => id})
-  volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => assigned_project.id})
-  
-  volunteer.save
-  redirect to(('/volunteers'))
+post("/projects/:id/add_volunteer") do
+  name = params[:name]
+  @project = Project.find(params[:id].to_i)
+  @volunteer = Volunteer.new({:name => name, :id => nil, :project_id => @project.id})
+  @volunteer.save
+  erb(:project)
 end
 
 
 get("/projects/:id") do
   @project = Project.find(params[:id].to_i)
+  @volunteers = @project.volunteers
   erb(:project)
 end
 
 patch("/projects/:id") do
   @project = Project.find(params[:id].to_i)
-  @project.update({:title => params[:project_title], :id => nil})
-  redirect to("/projects")
+  @project.update({:title => params[:title], :id => nil})
+  redirect to("/home")
 end
 
 delete("/projects/:id") do
   @project = Project.find(params[:id].to_i)
   @project.delete()
-  redirect to("/projects")
+  redirect to("/home")
 end
 
 get('/volunteers/:id') do
   @volunteer = Volunteer.find(params[:id].to_i)
-  
   erb(:volunteer)
+end
+
+get('/projects/:id/edit') do
+  @project = Project.find(params[:id].to_i)
+  @volunteers = @project.volunteers
+  erb(:edit_project)
 end

@@ -1,8 +1,2 @@
 <h2> <%= @volunteer.name %></h2>
 <h2> <a href="/projects/<%= @volunteer.project_id %>">Click here to their current project!</a></h2>
-
-<form action="/volunteers/<%= @volunteer.id %>/new_project" method="post">
-  <input name="_method" type="hidden" value="patch">
-  <input id="new_project" name="new_project" type="text">
-  <button type="submit" class="btn-warning">Submit</button>
-</form>
