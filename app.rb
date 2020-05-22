@@ -35,8 +35,13 @@ end
 
 post("/volunteers") do
   volunteer_name = params[:volunteer_name]
-  project_id = Project.random_assigner.to_i
-  volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => project_id})
+  
+  assigned_project_query = DB.exec("SELECT * FROM projects ORDER BY RANDOM() LIMIT 1;")
+  title = assigned_project_query.first().fetch("title")
+  id = assigned_project_query.first().fetch("id")
+  assigned_project = Project.new({:title => title, :id => id})
+  volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => assigned_project.id})
+  
   volunteer.save
   redirect to(('/volunteers'))
 end
@@ -61,5 +66,6 @@ end
 
 get('/volunteers/:id') do
   @volunteer = Volunteer.find(params[:id].to_i)
+  
   erb(:volunteer)
 end
