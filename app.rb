@@ -35,7 +35,8 @@ end
 
 post("/volunteers") do
   volunteer_name = params[:volunteer_name]
-  volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => })
+  project_id = Project.random_assigner.to_i
+  volunteer = Volunteer.new({:name => volunteer_name, :id => nil, :project_id => project_id})
   volunteer.save
   redirect to(('/volunteers'))
 end
@@ -58,3 +59,7 @@ delete("/projects/:id") do
   redirect to("/projects")
 end
 
+get('/volunteers/:id') do
+  @volunteer = Volunteer.find(params[:id].to_i)
+  erb(:volunteer)
+end
