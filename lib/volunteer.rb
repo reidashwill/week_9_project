@@ -15,5 +15,8 @@ class Volunteer
     @project_id = result.first().fetch("project_id").to_i
   end
 
+  def ==(volunteer_to_compare)
+    self.name() == volunteer_to_compare.name()
+  end
 
 end
