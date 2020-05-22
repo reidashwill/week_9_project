@@ -91,14 +91,4 @@ describe Project do
     end
   end
 
-  describe '#random_assigner' do
-  it 'allows a project id to be generated based on the number of current projects' do
-    project1 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-    project1.save
-    project2 = Project.new({:title => 'Teaching Ruby to Kids', :id => nil})
-    project2.save
-    expect(Project.random_assigner).to be_between(1, 2)
-    end
-  end
-
 end
