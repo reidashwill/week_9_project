@@ -51,4 +51,11 @@ class Volunteer
     volunteers
   end
 
+  def update(attributes)
+    if(attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
+      @name = attributes.fetch(:name)
+      DB.exec("UPDATE volunteers SET name = '#{name}' WHERE id = #{id};")
+    end
+  end 
+  
 end
