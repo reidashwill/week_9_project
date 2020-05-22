@@ -49,4 +49,7 @@ class Project
     Volunteer.find_by_project(self.id)
   end
 
+  def self.random_assigner
+    random_project_id = rand(1..Project.all.length)
+  end
 end

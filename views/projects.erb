@@ -1,0 +1,15 @@
+<form action="/projects" method="post">
+  <div class="form-group">
+    <label for="project_title">What is the project called?</label>
+    <input type="text" name="project_title" id="project_title" class="form-control">
+  </div>
+  <button class="btn-success">Add project to system</button>
+</form>
+<% if @projects %>
+<h3> Ongoing Projects:</h3>
+  <ul>
+  <% @projects.each do |project| %>
+    <li><a href="/projects/<%= project.id %>"> <%= project.title %></a></li>
+  <% end %>
+  </ul>
+<% end %>  
