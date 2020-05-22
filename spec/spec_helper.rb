@@ -1,0 +1,7 @@
+require 'rspec'
+require 'pg'
+require 'volunteer'
+require 'project'
+require 'song'
+require 'pry'
+require 'capybara'
