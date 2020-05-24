@@ -11,15 +11,24 @@ This app allows the user to create projects, and volunteers assigned to them.
 ## Specs
 
 1   User can create instances of the Project class
+
 2   User can save instances of the Project class to a pqsl database
+
 3   User can update instances of the Project class
+
 4   User can delete instances of the Project class
+
 5   User can list and view instances of the Project class
+
 6   User can list all Instances of volunteer class belonging to an instance of Project class
 
+
 7   User can create instaces of Volunteer class
+
 8   User can save instances of Volunteer class
+
 9   User can update instances of Volunteer class
+
 10  User can list and view instances of the Volunteer class
 
 
