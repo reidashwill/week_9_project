@@ -63,14 +63,16 @@ get('/volunteers/:id') do
   erb(:volunteer)
 end
 
+patch("/volunteers/:id") do
+  @volunteer = Volunteer.find(params[:id].to_i)
+  @volunteer.update({:name => params[:name], :id => @volunteer.id, :project_id => nil})
+  erb(:volunteer)
+  # redirect to("/volunteers/:id")
+end
+
 get('/projects/:id/edit') do
   @project = Project.find(params[:id].to_i)
   @volunteers = @project.volunteers
   erb(:edit_project)
 end
 
-patch("/volunteers/:id") do
-  @volunteer = Volunteer.find(params[:id].to_i)
-  @volunteer.update({:name => params[:name], :id => nil, :project_id => nil})
-  redirect to("/volunteers/:id")
-end
